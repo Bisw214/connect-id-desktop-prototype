@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connect ID - Search</title>
+  <link rel="stylesheet" href="search.css" />
+</head>
+<body>
+  <div class="top">
+    <h1 class="app-title">Connect <span>ID</span></h1>
+  </div>
+  <img src="search.jpg" alt="background-color" class="bagImg" />
+
+  <div class="boxx">
+
+  <select id="university-select" class="glow-effect">
+    <option value="">Select University</option>
+    <option>Parul University</option>
+    <option>IIT Bombay</option>
+    <option>IIT Delhi</option>
+    <option>Harvard University</option>
+    <option>MIT</option>
+    <option>Stanford University</option>
+    <option>Oxford University</option>
+    <option>Yale University</option>
+  </select>
+
+<div class="or-line">
+  <span>OR</span>
+</div>
+
+
+  <select id="tag-select">
+    <option value="">Select Tag</option>
+    <option>Robotics</option>
+    <option>Startup Founder</option>
+    <option>Computer Science Engineer</option>
+    <option>Doctor</option>
+    <option>Band / Music</option>
+    <option>Football</option>
+    <option>Photography</option>
+    <option>Youtuber</option>
+    <option>Data Scientist</option>
+    <option>Entrepreneurship / Creativity</option>
+    <option>Drawing</option>
+    <option>Dance</option>
+  </select>
+
+
+  <button onclick="searchPeople()" class="tagsearch">Search</button>
+
+  <div id="results" class="results"></div>
+
+  <div id="college-search-container" class="college-search">
+    <input type="text" placeholder="Search By College.." class="search-input" />
+    <button class="search-button1">Search</button>
+  </div>
+</div>
+  <script>
+    const people = [
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Robotics" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Robotics" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Robotics" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Robotics" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Band / Music" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Band / Music" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Band / Music" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Band / Music" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Business" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Business" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Business" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Business" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Computer Science Engineer" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Computer Science Engineer" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Computer Science Engineer" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Computer Science Engineer" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Startup Founder" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Startup Founder" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Startup Founder" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Startup Founder" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "AI Engineer" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "AI Engineer" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "AI Engineer" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "AI Engineer" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Doctor" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Doctor" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Doctor" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Doctor" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Data Scientist" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Data Scientist" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Data Scientist" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Data Scientist" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Entrepreneurship / Creativity" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Entrepreneurship / Creativity" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Entrepreneurship / Creativity" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Entrepreneurship / Creativity" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Drawing" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Drawing" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Drawing" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Drawing" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Football" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Football" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Football" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Football" },
+  { name: "Arjun Mehta", university: "IIT Bombay", tag: "Photography" },
+  { name: "Saira Kunj", university: "IIT Bombay", tag: "Photography" },
+  { name: "Mohit Sharma", university: "IIT Bombay", tag: "Photography" },
+  { name: "Komal Mishra", university: "IIT Bombay", tag: "Photography" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Robotics" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Robotics" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Robotics" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Robotics" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Band / Music" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Band / Music" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Band / Music" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Band / Music" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Business" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Business" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Business" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Business" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Computer Science Engineer" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Computer Science Engineer" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Computer Science Engineer" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Computer Science Engineer" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Startup Founder" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Startup Founder" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Startup Founder" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Startup Founder" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "AI Engineer" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "AI Engineer" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "AI Engineer" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "AI Engineer" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Doctor" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Doctor" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Doctor" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Doctor" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Data Scientist" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Data Scientist" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Data Scientist" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Data Scientist" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Entrepreneurship / Creativity" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Entrepreneurship / Creativity" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Entrepreneurship / Creativity" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Entrepreneurship / Creativity" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Drawing" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Drawing" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Drawing" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Drawing" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Football" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Football" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Football" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Football" },
+  { name: "Arjun Mehta", university: "IIT Delhi", tag: "Photography" },
+  { name: "Saira Kunj", university: "IIT Delhi", tag: "Photography" },
+  { name: "Mohit Sharma", university: "IIT Delhi", tag: "Photography" },
+  { name: "Komal Mishra", university: "IIT Delhi", tag: "Photography" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Robotics" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Robotics" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Robotics" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Robotics" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Band / Music" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Band / Music" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Band / Music" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Band / Music" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Business" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Business" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Business" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Business" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Computer Science Engineer" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Computer Science Engineer" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Computer Science Engineer" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Computer Science Engineer" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Startup Founder" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Startup Founder" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Startup Founder" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Startup Founder" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "AI Engineer" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "AI Engineer" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "AI Engineer" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "AI Engineer" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Doctor" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Doctor" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Doctor" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Doctor" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Data Scientist" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Data Scientist" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Data Scientist" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Data Scientist" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Entrepreneurship / Creativity" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Entrepreneurship / Creativity" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Entrepreneurship / Creativity" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Entrepreneurship / Creativity" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Drawing" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Drawing" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Drawing" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Drawing" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Football" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Football" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Football" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Football" },
+  { name: "Arjun Mehta", university: "Harvard University", tag: "Photography" },
+  { name: "Saira Kunj", university: "Harvard University", tag: "Photography" },
+  { name: "Mohit Sharma", university: "Harvard University", tag: "Photography" },
+  { name: "Komal Mishra", university: "Harvard University", tag: "Photography" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Robotics" },
+  { name: "Saira Kunj", university: "MIT", tag: "Robotics" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Robotics" },
+  { name: "Komal Mishra", university: "MIT", tag: "Robotics" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Band / Music" },
+  { name: "Saira Kunj", university: "MIT", tag: "Band / Music" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Band / Music" },
+  { name: "Komal Mishra", university: "MIT", tag: "Band / Music" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Business" },
+  { name: "Saira Kunj", university: "MIT", tag: "Business" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Business" },
+  { name: "Komal Mishra", university: "MIT", tag: "Business" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Computer Science Engineer" },
+  { name: "Saira Kunj", university: "MIT", tag: "Computer Science Engineer" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Computer Science Engineer" },
+  { name: "Komal Mishra", university: "MIT", tag: "Computer Science Engineer" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Startup Founder" },
+  { name: "Saira Kunj", university: "MIT", tag: "Startup Founder" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Startup Founder" },
+  { name: "Komal Mishra", university: "MIT", tag: "Startup Founder" },
+  { name: "Arjun Mehta", university: "MIT", tag: "AI Engineer" },
+  { name: "Saira Kunj", university: "MIT", tag: "AI Engineer" },
+  { name: "Mohit Sharma", university: "MIT", tag: "AI Engineer" },
+  { name: "Komal Mishra", university: "MIT", tag: "AI Engineer" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Doctor" },
+  { name: "Saira Kunj", university: "MIT", tag: "Doctor" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Doctor" },
+  { name: "Komal Mishra", university: "MIT", tag: "Doctor" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Data Scientist" },
+  { name: "Saira Kunj", university: "MIT", tag: "Data Scientist" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Data Scientist" },
+  { name: "Komal Mishra", university: "MIT", tag: "Data Scientist" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Entrepreneurship / Creativity" },
+  { name: "Saira Kunj", university: "MIT", tag: "Entrepreneurship / Creativity" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Entrepreneurship / Creativity" },
+  { name: "Komal Mishra", university: "MIT", tag: "Entrepreneurship / Creativity" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Drawing" },
+  { name: "Saira Kunj", university: "MIT", tag: "Drawing" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Drawing" },
+  { name: "Komal Mishra", university: "MIT", tag: "Drawing" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Football" },
+  { name: "Saira Kunj", university: "MIT", tag: "Football" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Football" },
+  { name: "Komal Mishra", university: "MIT", tag: "Football" },
+  { name: "Arjun Mehta", university: "MIT", tag: "Photography" },
+  { name: "Saira Kunj", university: "MIT", tag: "Photography" },
+  { name: "Mohit Sharma", university: "MIT", tag: "Photography" },
+  { name: "Komal Mishra", university: "MIT", tag: "Photography" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Robotics" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Robotics" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Robotics" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Robotics" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Band / Music" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Band / Music" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Band / Music" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Band / Music" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Business" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Business" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Business" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Business" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Computer Science Engineer" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Computer Science Engineer" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Computer Science Engineer" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Computer Science Engineer" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Startup Founder" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Startup Founder" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Startup Founder" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Startup Founder" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "AI Engineer" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "AI Engineer" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "AI Engineer" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "AI Engineer" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Doctor" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Doctor" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Doctor" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Doctor" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Data Scientist" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Data Scientist" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Data Scientist" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Data Scientist" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Entrepreneurship / Creativity" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Entrepreneurship / Creativity" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Entrepreneurship / Creativity" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Entrepreneurship / Creativity" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Drawing" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Drawing" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Drawing" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Drawing" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Football" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Football" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Football" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Football" },
+  { name: "Arjun Mehta", university: "Stanford University", tag: "Photography" },
+  { name: "Saira Kunj", university: "Stanford University", tag: "Photography" },
+  { name: "Mohit Sharma", university: "Stanford University", tag: "Photography" },
+  { name: "Komal Mishra", university: "Stanford University", tag: "Photography" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Robotics" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Robotics" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Robotics" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Robotics" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Band / Music" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Band / Music" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Band / Music" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Band / Music" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Business" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Business" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Business" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Business" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Computer Science Engineer" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Computer Science Engineer" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Computer Science Engineer" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Computer Science Engineer" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Startup Founder" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Startup Founder" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Startup Founder" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Startup Founder" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "AI Engineer" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "AI Engineer" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "AI Engineer" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "AI Engineer" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Doctor" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Doctor" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Doctor" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Doctor" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Data Scientist" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Data Scientist" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Data Scientist" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Data Scientist" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Entrepreneurship / Creativity" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Entrepreneurship / Creativity" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Entrepreneurship / Creativity" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Entrepreneurship / Creativity" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Drawing" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Drawing" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Drawing" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Drawing" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Football" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Football" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Football" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Football" },
+  { name: "Arjun Mehta", university: "Oxford University", tag: "Photography" },
+  { name: "Saira Kunj", university: "Oxford University", tag: "Photography" },
+  { name: "Mohit Sharma", university: "Oxford University", tag: "Photography" },
+  { name: "Komal Mishra", university: "Oxford University", tag: "Photography" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Robotics" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Robotics" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Robotics" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Robotics" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Band / Music" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Band / Music" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Band / Music" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Band / Music" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Business" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Business" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Business" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Business" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Computer Science Engineer" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Computer Science Engineer" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Computer Science Engineer" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Computer Science Engineer" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Startup Founder" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Startup Founder" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Startup Founder" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Startup Founder" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "AI Engineer" },
+  { name: "Saira Kunj", university: "Yale University", tag: "AI Engineer" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "AI Engineer" },
+  { name: "Komal Mishra", university: "Yale University", tag: "AI Engineer" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Doctor" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Doctor" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Doctor" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Doctor" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Data Scientist" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Data Scientist" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Data Scientist" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Data Scientist" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Entrepreneurship / Creativity" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Entrepreneurship / Creativity" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Entrepreneurship / Creativity" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Entrepreneurship / Creativity" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Drawing" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Drawing" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Drawing" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Drawing" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Football" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Football" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Football" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Football" },
+  { name: "Arjun Mehta", university: "Yale University", tag: "Photography" },
+  { name: "Saira Kunj", university: "Yale University", tag: "Photography" },
+  { name: "Mohit Sharma", university: "Yale University", tag: "Photography" },
+  { name: "Komal Mishra", university: "Yale University", tag: "Photography" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Robotics" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Robotics" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Robotics" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Robotics" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Band / Music" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Band / Music" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Band / Music" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Band / Music" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Business" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Business" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Business" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Business" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Computer Science Engineer" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Computer Science Engineer" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Computer Science Engineer" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Computer Science Engineer" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Startup Founder" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Startup Founder" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Startup Founder" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Startup Founder" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "AI Engineer" },
+  { name: "Saira Kunj", university: "Parul University", tag: "AI Engineer" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "AI Engineer" },
+  { name: "Komal Mishra", university: "Parul University", tag: "AI Engineer" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Doctor" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Doctor" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Doctor" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Doctor" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Data Scientist" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Data Scientist" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Data Scientist" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Data Scientist" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Entrepreneurship / Creativity" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Entrepreneurship / Creativity" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Entrepreneurship / Creativity" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Entrepreneurship / Creativity" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Drawing" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Drawing" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Drawing" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Drawing" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Football" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Football" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Football" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Football" },
+  { name: "Arjun Mehta", university: "Parul University", tag: "Photography" },
+  { name: "Saira Kunj", university: "Parul University", tag: "Photography" },
+  { name: "Mohit Sharma", university: "Parul University", tag: "Photography" },
+  { name: "Komal Mishra", university: "Parul University", tag: "Photography" }
+];
+    function searchPeople() {
+      const university = document.getElementById('university-select').value;
+      const tag = document.getElementById('tag-select').value;
+      const resultBox = document.getElementById('results');
+      resultBox.innerHTML = '';
+      document.getElementById('college-search-container').classList.add('shifted');
+
+      resultBox.className = 'results';
+
+      if (!university || !tag) {
+        resultBox.innerHTML = '<p>Please select both filters.</p>';
+        return;
+      }
+
+      const matches = people.filter(p =>
+        p.university === university && p.tag === tag
+      );
+
+      if (matches.length === 0) {
+        resultBox.innerHTML = '<p>No matching people found.</p>';
+        return;
+      }
+
+      matches.forEach(person => {
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <div><strong>${person.name}</strong></div>
+          <div>University: <strong>${person.university}</strong></div>
+          <div>Tag: <strong>${person.tag}</strong></div>
+        `;
+        resultBox.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>

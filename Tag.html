@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connect ID - Career & Hobbies Tags</title>
+  <link rel="stylesheet" href="tag.css">
+</head>
+<body class="tagbody">
+  <main class="centerscreen" role="main">
+    <h1 class="app-title">Connect <span>ID</span></h1>
+    <form>
+    <h2 class="section-title">Select Tag</h2>
+<div class="tagbody">
+    <section class="dropdown" aria-expanded="false" id="career-dropdown">
+      <button class="dropdown__header" aria-expanded="false" type="button">
+        <span class="dropdown-label">Ambitious Tags</span>
+        <span class="dropdown__arrow"></span>
+      </button>
+      <div class="dropdown__content">
+        <input type="search" id="career-search" class="dropdown__search" placeholder="Search careers..." />
+        <ul class="tags-list" id="career-tags">
+          <li class="tag-list__item">Business</li>
+          <li class="tag-list__item">Computer Science Engineer</li>
+          <li class="tag-list__item">Robotics</li>
+          <li class="tag-list__item">Designer</li>
+          <li class="tag-list__item">Coder</li>
+          <li class="tag-list__item">Doctor</li>
+          <li class="tag-list__item">Lawyer</li>
+          <li class="tag-list__item">Architect</li>
+          <li class="tag-list__item">Artist</li>
+          <li class="tag-list__item">AI Engineer</li>
+          <li class="tag-list__item">Data Scientist</li>
+          <li class="tag-list__item">Mechanical Engineer</li>
+          <li class="tag-list__item">Civil Engineer</li>
+          <li class="tag-list__item">Psychologist</li>
+          <li class="tag-list__item">Entrepreneurship / Creativity</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="dropdown" aria-expanded="false" id="hobbies-dropdown">
+      <button class="dropdown__header" aria-expanded="false" type="button">
+        <span class="dropdown-label">Hobbies</span>
+        <span class="dropdown__arrow"></span>
+      </button>
+      <div class="dropdown__content">
+        <input type="search" id="hobbies-search" class="dropdown__search" placeholder="Search hobbies..." />
+        <ul class="tags-list" id="hobbies-tags">
+          <li class="tag-list__item">Band / Music</li>
+          <li class="tag-list__item">Football</li>
+          <li class="tag-list__item">Dance</li>
+          <li class="tag-list__item">Photography</li>
+          <li class="tag-list__item">Gaming</li>
+          <li class="tag-list__item">Drawing</li>
+          <li class="tag-list__item">Cooking</li>
+          <li class="tag-list__item">Youtuber</li>
+          <li class="tag-list__item">Writing</li>
+          <li class="tag-list__item">Blogging</li>
+          <li class="tag-list__item">Swimming</li>
+          <li class="tag-list__item">Chess</li>
+          <li class="tag-list__item">Influencer</li>
+        </ul>
+      </div>
+    
+      <div class="next-button-container">
+        <a href="home.html" class="next-button">Submit</a>
+      </div>
+        </div>
+      </div>
+      </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    function toggleDropdown(e) {
+      const section = e.currentTarget.closest('.dropdown');
+      const content = section.querySelector('.dropdown__content');
+      const isExpanded = section.getAttribute('aria-expanded') === 'true';
+
+      section.setAttribute('aria-expanded', !isExpanded);
+      e.currentTarget.setAttribute('aria-expanded', !isExpanded);
+      content.hidden = isExpanded;
+    }
+
+    function sortAndFilter(inputId, listId) {
+      const input = document.getElementById(inputId);
+      const list = document.getElementById(listId);
+      const items = Array.from(list.querySelectorAll('.tag-list__item'));
+      const search = input.value.toLowerCase();
+
+      items.sort((a, b) => {
+        const aMatch = a.textContent.toLowerCase().includes(search);
+        const bMatch = b.textContent.toLowerCase().includes(search);
+        if (aMatch && !bMatch) return -1;
+        if (!aMatch && bMatch) return 1;
+        return a.textContent.localeCompare(b.textContent);
+      });
+
+      items.forEach(item => {
+        item.style.display = item.textContent.toLowerCase().includes(search) ? 'block' : 'none';
+        list.appendChild(item);
+      });
+    }
+
+    function handleTagClick(tagEl, type) {
+      const section = document.getElementById(`${type}-dropdown`);
+      const labelSpan = section.querySelector('.dropdown-label');
+      const content = section.querySelector('.dropdown__content');
+      const header = section.querySelector('.dropdown__header');
+
+      labelSpan.textContent = '#' + tagEl.textContent;
+      section.setAttribute('aria-expanded', false);
+      header.setAttribute('aria-expanded', false);
+      content.hidden = true;
+    }
+
+    function goToNext() {
+      alert("Next button clicked!");
+      // window.location.href = 'next.html';
+    }
+
+    function submitTags() {
+      const careerTag = document.querySelector('#career-dropdown .dropdown-label').textContent;
+      const hobbyTag = document.querySelector('#hobbies-dropdown .dropdown-label').textContent;
+
+      const selectedCareer = careerTag.startsWith('#') ? careerTag.slice(1) : '';
+      const selectedHobby = hobbyTag.startsWith('#') ? hobbyTag.slice(1) : '';
+
+      if (!selectedCareer || !selectedHobby) {
+        alert('Please select both an Ambitious Tag and a Hobby.');
+        return;
+      }
+
+      alert(`Submitted:\nCareer: ${selectedCareer}\nHobby: ${selectedHobby}`);
+      // You can send data to server or navigate
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.dropdown__header').forEach(header => {
+        header.addEventListener('click', toggleDropdown);
+      });
+
+      document.getElementById('career-search').addEventListener('input', () => {
+        sortAndFilter('career-search', 'career-tags');
+      });
+
+      document.getElementById('hobbies-search').addEventListener('input', () => {
+        sortAndFilter('hobbies-search', 'hobbies-tags');
+      });
+
+      document.querySelectorAll('#career-tags .tag-list__item').forEach(item => {
+        item.addEventListener('click', () => handleTagClick(item, 'career'));
+      });
+
+      document.querySelectorAll('#hobbies-tags .tag-list__item').forEach(item => {
+        item.addEventListener('click', () => handleTagClick(item, 'hobbies'));
+      });
+    });
+  </script>
+</body>
+</html>
